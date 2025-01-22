@@ -1,27 +1,34 @@
+'use client'
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Dashboard = () => {
   const [donors, setDonors] = useState([]);
-  
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchDonors = async () => {
       const token = localStorage.getItem('token');
-      
+
       if (token) {
         try {
           const response = await axios.get('http://localhost:5000/api/donors', {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
           });
           setDonors(response.data);
+          setLoading(false);
         } catch (err) {
           console.error('Error fetching donors:', err);
+          setLoading(false);
         }
       }
     };
-    
+
     fetchDonors();
   }, []);
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -34,7 +41,7 @@ const Dashboard = () => {
             <p className="text-sm text-gray-600">Location: {donor.location}</p>
             <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">Contact</button>
           </div>
-        ))}0         
+        ))}
       </div>
     </div>
   );
