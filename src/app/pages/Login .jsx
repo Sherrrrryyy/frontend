@@ -1,58 +1,46 @@
-import { useState } from 'react';
-import axios from 'axios';
+// src/Login.js
+import React from 'react';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post('http://localhost:4000/api/users/login', { email, password });
-      const { token, user } = response.data;
-
-      // Save JWT token in localStorage
-      localStorage.setItem('token', token);
-
-      // Redirect to the dashboard
-      window.location.href = '/dashboard';
-    } catch (err) {
-      setError('Invalid credentials!');
-    }
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
-        <form onSubmit={handleSubmit}>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-600">
+      <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+        <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">Login</h2>
+        <form>
           <div className="mb-4">
-            <label className="block text-gray-700" htmlFor="email">Email</label>
-            <input 
-              type="email" 
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+              Email
+            </label>
+            <input
+              type="email"
               id="email"
-              className="w-full px-4 py-2 mt-2 border rounded-md" 
-              placeholder="Enter your email" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="you@example.com"
+              required
             />
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700" htmlFor="password">Password</label>
-            <input 
-              type="password" 
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+              Password
+            </label>
+            <input
+              type="password"
               id="password"
-              className="w-full px-4 py-2 mt-2 border rounded-md" 
-              placeholder="Enter your password" 
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)} 
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="********"
+              required
             />
           </div>
-          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md">Login</button>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300"
+          >
+            Login
+          </button>
         </form>
+        <p className="mt-4 text-center text-gray-600">
+          Don't have an account? <a href="#" className="text-blue-500 hover:text-blue-700">Sign Up</a>
+        </p>
       </div>
     </div>
   );
