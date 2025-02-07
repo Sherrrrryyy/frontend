@@ -10,9 +10,17 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #ffffff;
   }
 }
+
+/* Blood Bank Theme Styles */
+body {
+  background-image: url('/public/Images/blood-background.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
 
 body {
   color: var(--foreground);
